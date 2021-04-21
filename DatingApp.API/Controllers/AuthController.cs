@@ -49,36 +49,43 @@ namespace DatingApp.API.Controllers
         
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userForRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
+           
+            
+                // throw new Exception("Computer Says No!");
 
-            if (userForRepo == null)
-                return Unauthorized();
+                var userForRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
 
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier , userForRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name , userForRepo.UserName)
-            };
+                if (userForRepo == null)
+                    return Unauthorized();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
-            var creds = new SigningCredentials(key , SecurityAlgorithms.HmacSha512Signature);
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier , userForRepo.Id.ToString()),
+                    new Claim(ClaimTypes.Name , userForRepo.UserName)
+                };
 
-            var tokenDescriptor = new SecurityTokenDescriptor 
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var creds = new SigningCredentials(key , SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenDescriptor = new SecurityTokenDescriptor 
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddDays(1),
+                    SigningCredentials = creds
+                };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+                var tokenHandler = new JwtSecurityTokenHandler();
 
-            return Ok(new 
-            {
-                token = tokenHandler.WriteToken(token)
+                var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            });
+                return Ok(new 
+                {
+                    token = tokenHandler.WriteToken(token)
+
+                });
+             
+            
+           
         }
     }
 }
