@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from './_models/user';
 import { AuthService } from './_services/auth.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { AuthService } from './_services/auth.service';
 })
 export class AppComponent implements OnInit {
   // title = 'DatingApp-SPA';
+  declare user: User ;
   jwtHelper = new JwtHelperService();
 
   constructor(private authService : AuthService) {}
@@ -19,6 +21,15 @@ export class AppComponent implements OnInit {
   if (token) {
     this.authService.decodedToken = this.jwtHelper.decodeToken(token);
   }
+
+    if (token) {
+      this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+    }
+
+    if (this.user) {
+      this.authService.currentUser = this.user;
+      this.authService.changeMemberPhoto(this.user.photoUrl);
+    }
 }
 
 }

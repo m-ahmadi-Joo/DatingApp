@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <div class="row">
+    <h1>{{user.userName}}'s Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img src="" alt="" class="card-img-top img-thumbnail"
+        src="{{user.photoUrl}}" alt="{{user.KnowAs}}">
+
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{user.city}}, {{user.country}} </p>
+          </div>
+
+          <div>
+            <strong>Age:</strong>
+            <p>{{user.age}} </p>
+          </div>
+
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{user.lastActive}} </p>
+          </div>
+
+          <div>
+            <strong>Sex:</strong>
+            <p>{{user.gender}} </p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="btn-group d-flex">
+            <button class="btn btn-primary">Like</button>&nbsp;&nbsp;
+            <button class="btn btn-success">Message</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+   <div class="col-sm-8">
+<div class="tab-panel">
+
+  <tabset>
+
+    <tab heading="About {{user?.KnowAs}}">
+      <div class="container mt-5">
+        <h4>Description</h4>
+      <p class="">{{user.introduction}}</p>
+      <h4>Looking For</h4>
+      <p class="">{{user.lookingfor}}</p>
+      </div>
+
+    </tab>
+
+    <tab heading="Interests">
+      <div class="container mt-5">
+        <h4>Interests</h4>
+      <p>{{user.interests}}</p>
+      </div>
+
+    </tab>
+
+    <tab heading="Photos">
+      <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+    </tab>
+
+    <tab heading="Messages">
+      <div class="container mt-5"><p>Messages will go here</p></div>
+
+    </tab>
+  </tabset>
+
+</div>
+   </div>
+  </div>
+</div>

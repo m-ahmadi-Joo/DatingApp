@@ -1,15 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = 'http://localhost:5000/api/auth/'
+  baseUrl = environment.apiUrl + 'auth/'
   jwtHelper = new JwtHelperService();
   decodedToken : any;
+  declare currentUser: User | null ;
+  photoUrl = new BehaviorSubject<string>('../../assets/user.png');
+  currentPhotoUrl = this.photoUrl.asObservable();
 constructor(private http: HttpClient) { }
 
 login(model:any)
@@ -43,6 +49,10 @@ login(model:any)
     const token =localStorage.getItem('token') !== null ? localStorage.getItem('token'): JSON.parse(localStorage.getItem('token')!);
 
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  changeMemberPhoto(photoUrl: string) {
+    this.photoUrl.next(photoUrl);
   }
 
 }
