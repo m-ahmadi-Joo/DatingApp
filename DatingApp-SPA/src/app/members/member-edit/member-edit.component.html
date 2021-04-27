@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="card">
-          <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.KnowAs}}">
+          <img class="card-img-top img-thumbnail" src="{{user.photoUrl}}" alt="{{user.knownAs}}">
           <div class="card-body">
             <div>
               <strong>Location:</strong>
@@ -47,7 +47,7 @@
                     [(ngModel)]="user.introduction"></textarea>
                   <h4>Looking For</h4>
                   <textarea class="form-control" name="lookingFor" rows="6"
-                    [(ngModel)]="user.lookingfor"></textarea>
+                    [(ngModel)]="user.lookingFor"></textarea>
                     <h4>Interests</h4>
                     <textarea class="form-control" name="interests" rows="6"
                       [(ngModel)]="user.interests"></textarea>
@@ -59,7 +59,7 @@
                     <input type="text" class="form-control" name="country" [(ngModel)]="user.country">
 
                     <label for="KnowAs">KnownAs</label>
-                    <input type="text" class="form-control" name="KnowAs" [(ngModel)]="user.KnowAs">
+                    <input type="text" class="form-control" name="KnowAs" [(ngModel)]="user.knownAs">
                   </div>
 
               </form>
