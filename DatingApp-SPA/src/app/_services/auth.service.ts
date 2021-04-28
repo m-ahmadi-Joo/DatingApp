@@ -13,9 +13,10 @@ export class AuthService {
   baseUrl = environment.apiUrl + 'auth/'
   jwtHelper = new JwtHelperService();
   decodedToken : any;
-  declare currentUser: User | null ;
+  declare currentUser: User ;
   photoUrl = new BehaviorSubject<string>('../../assets/user.png');
   currentPhotoUrl = this.photoUrl.asObservable();
+
 constructor(private http: HttpClient) { }
 
 login(model:any)
@@ -28,8 +29,11 @@ login(model:any)
       const user = response;
       if(user){
         localStorage.setItem('token', user.token);
+        localStorage.setItem('user', JSON.stringify(user.user));
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
-        console.log(this.decodedToken);
+        this.currentUser = user.user ;
+        this.changeMemberPhoto(this.currentUser.photoUrl);
+        // console.log(this.decodedToken);
       }
 
     })
@@ -46,7 +50,7 @@ login(model:any)
 
   loggedIn() {
     // const token = localStorage.getItem('token');
-    const token =localStorage.getItem('token') !== null ? localStorage.getItem('token'): JSON.parse(localStorage.getItem('token')!);
+    const token = localStorage.getItem('token') !== null ? localStorage.getItem('token'): JSON.parse(localStorage.getItem('token')!);
 
     return !this.jwtHelper.isTokenExpired(token);
   }
